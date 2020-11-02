@@ -4,7 +4,7 @@ Has a statement of transactions
 @statement = []
 ```
 ## Statement
-Ordered list of transactions [[date, debit amount, credit amount], [date, debit amount, credit amount]]
+Ordered list of transactions [[date, debit amount, credit amount], [date, debit amount, credit amount]]  
 Not necessary to store balance - this can be calculated when needed.
 
 ## Deposit
