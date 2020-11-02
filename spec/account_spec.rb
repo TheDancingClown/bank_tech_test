@@ -54,9 +54,10 @@ RSpec.describe Account do
       @super_saver.deposit('10/01/2012', 1000)
       @super_saver.deposit('12/01/2012', 2000)
       @super_saver.withdraw('14/01/2012', 500)
-      expect { @super_saver.print_statement }.to output(
-        "date || credit || debit || balance\n14/01/2012 || || 500.00 || 2500.00\n12/01/2012 || 2000.00 || || 3000.00\n10/01/2012 || 1000.00 || || 1000.00\n"
-      ).to_stdout
+      $stdout = StringIO.new
+      @super_saver.print_statement
+      output = $stdout.string.split("\n")
+      expect(output.last).to eq "10/01/2012 || 1000.00 || || 1000.00"
     end
   end
 end
