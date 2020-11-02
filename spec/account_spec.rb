@@ -3,7 +3,7 @@
 require 'account'
 
 RSpec.describe Account do
-  before (:each) do
+  before(:each) do
     @super_saver = Account.new
   end
 
@@ -13,8 +13,18 @@ RSpec.describe Account do
 
   describe '#deposit' do
     it 'adds a credit transaction to the statement' do
-      @super_saver.deposit("14/01/2012", 1000)
-      expect(@super_saver.statement.first).to eq ["14/01/2012", 1000, nil]
+      @super_saver.deposit('14/01/2012', 1000)
+      expect(@super_saver.statement.first).to eq ['14/01/2012', 1000, nil]
+    end
+
+    it 'does not add a transaction with a zero amount' do
+      @super_saver.deposit('14/01/2012', 0)
+      expect(@super_saver.statement).to be_empty
+    end
+
+    it 'does not add a transaction with a negative amount' do
+      @super_saver.deposit('14/01/2012', -1000)
+      expect(@super_saver.statement).to be_empty
     end
   end
 end

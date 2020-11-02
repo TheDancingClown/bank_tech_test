@@ -9,6 +9,6 @@ class Account
   end
 
   def deposit(date, amount)
-    @statement << [date, amount, nil]
+    @statement << [date, amount, nil] unless amount <= 0
   end
 end
