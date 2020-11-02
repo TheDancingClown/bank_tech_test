@@ -11,4 +11,8 @@ class Account
   def deposit(date, amount)
     @statement << [date, amount, nil] unless amount <= 0
   end
+
+  def withdraw(date, amount)
+    @statement << [date, nil, amount] unless amount <= 0
+  end
 end

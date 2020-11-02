@@ -2,3 +2,4 @@ language: ruby
 rvm:
  - 2.6
  - jruby
+script: bundle exec rake spec
