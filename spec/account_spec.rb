@@ -57,7 +57,7 @@ RSpec.describe Account do
       $stdout = StringIO.new
       @super_saver.print_statement
       output = $stdout.string.split("\n")
-      expect(output.last).to eq "10/01/2012 || 1000.00 || || 1000.00"
+      expect(output.last).to eq '10/01/2012 || 1000.00 || || 1000.00'
     end
   end
 end
