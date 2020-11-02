@@ -9,14 +9,14 @@ Not necessary to store balance - this can be calculated when needed.
 
 ## Deposit
 Takes in two arguments (date and amount)  
-Pushes a debit transaction into the statement  
+Pushes a credit transaction into the statement  
 ```
 statement << [date, amount, nil]
 ```
 
 ## Withdraw
 Takes in two arguments (date and amount)  
-Pushes a credit transaction into the statement  
+Pushes a debit transaction into the statement  
 ```
 statement << [date, nil, amount]
 ```
@@ -29,8 +29,8 @@ print "date || credit || debit || balance"
 balance = 0
 statement.reverse.map do |transaction| {
   date = transaction[0]
-  debit = transaction[1]
-  credit = transaction[2]
+  credit = transaction[1]
+  debit = transaction[2]
   
   debit == nil ? balance += credit : balance -= debit
 

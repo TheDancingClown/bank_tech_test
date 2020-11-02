@@ -6,4 +6,8 @@ class Account
     @statement = []
   end
 
+  def deposit(date, amount)
+    @statement << [date, amount, nil]
+  end
+
 end
