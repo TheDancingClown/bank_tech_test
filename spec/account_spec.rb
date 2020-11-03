@@ -36,9 +36,10 @@ RSpec.describe Account do
 
     it 'adds multiple credits to the transaction history' do
       @super_saver.deposit(200.15, '05/10/2018')
+      @super_saver.deposit(54.20, '14/04/2017')
       @super_saver.deposit(435.78, '15/04/2017')
-      expect(@super_saver.transaction_history.count).to eq 2
-      expect(@super_saver.transaction_history).to eq [['05/10/2018', '200.15', nil], ['15/04/2017', '435.78', nil]]
+      expect(@super_saver.transaction_history.first).to eq ['05/10/2018', '200.15', nil]
+      expect(@super_saver.transaction_history.last).to eq ['15/04/2017', '435.78', nil]
     end 
   end
 
@@ -67,9 +68,10 @@ RSpec.describe Account do
 
     it 'adds multiple debits to the transaction history' do
       @super_saver.withdraw(534.13, '25/05/2016')
+      @super_saver.withdraw(200, '18/08/2018')
       @super_saver.withdraw(0.01, '18/08/2014')
-      expect(@super_saver.transaction_history.count).to eq 2
-      expect(@super_saver.transaction_history).to eq [['25/05/2016', nil, '534.13'], ['18/08/2014', nil, '0.01']]
+      expect(@super_saver.transaction_history.first).to eq ['25/05/2016', nil, '534.13']
+      expect(@super_saver.transaction_history.last).to eq ['18/08/2014', nil, '0.01']
     end 
   end
 
