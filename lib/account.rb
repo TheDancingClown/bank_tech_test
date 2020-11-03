@@ -2,18 +2,18 @@
 
 # bank account
 class Account
-  attr_reader :statement
+  attr_reader :transaction_history
 
   def initialize
-    @statement = []
+    @transaction_history = []
   end
 
-  def deposit(date, amount)
-    @statement << [date, '%.2f' % amount, nil] unless amount <= 0
+  def deposit(amount, date = Time.now.strftime("%d/%m/%Y"))
+    @transaction_history << [date, '%.2f' % amount, nil] unless amount <= 0
   end
 
   def withdraw(date, amount)
-    @statement << [date, nil, '%.2f' % amount] unless amount <= 0
+    @transaction_history << [date, nil, '%.2f' % amount] unless amount <= 0
   end
 
   def print_statement
@@ -27,7 +27,7 @@ class Account
 
   def chronological_statement
     balance = 0
-    @statement.map do |transaction|
+    @transaction_history.map do |transaction|
       credit, debit = [transaction[1].to_f, transaction[2].to_f]
       balance += (credit - debit)
       transaction << '%.2f' % balance

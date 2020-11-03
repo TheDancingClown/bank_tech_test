@@ -1,3 +1,5 @@
+# Planning
+
 ## Account 
 Has a statement of transactions
 ```
@@ -39,3 +41,27 @@ statement.reverse.map do |transaction| {
 ```
 
 consider a Transaction class?
+
+# Review Points To Consider
+
+## Dates
+
+Add a default date using todays date
+
+## Separation of data and interface
+
+Move the formatting into a new class
+
+## Testing
+
+Consider whether other output matchers for testing STDout are more appropriate
+Add in coverage tester
+Add more tests to avoid hard coding - multiple deposits and withdrawals
+
+## Dates
+
+Add a default date using todays date
+
+## Method naming
+
+chronological_statement does not currently sort by date
