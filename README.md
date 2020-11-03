@@ -61,7 +61,7 @@ date || credit || debit || balance
 ```
 ## Run Tests
 ```
-rspec
+rake
 ```
 ## Assumptions
 * Accounts can be overdrawn - no limit in place
