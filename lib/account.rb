@@ -12,7 +12,7 @@ class Account
     @transaction_history << [date, '%.2f' % amount, nil] unless amount <= 0
   end
 
-  def withdraw(date, amount)
+  def withdraw(amount, date = Time.now.strftime("%d/%m/%Y"))
     @transaction_history << [date, nil, '%.2f' % amount] unless amount <= 0
   end
 

@@ -44,19 +44,33 @@ RSpec.describe Account do
 
   describe '#withdraw' do
     it 'adds a debit transaction to the history' do
-      @super_saver.withdraw('14/01/2012', 500)
+      @super_saver.withdraw(500, '14/01/2012')
       expect(@super_saver.transaction_history.first).to eq ['14/01/2012', nil, '500.00']
     end
 
     it 'does not add a transaction with a zero amount' do
-      @super_saver.withdraw('14/01/2012', 0)
+      @super_saver.withdraw(0, '14/01/2012')
       expect(@super_saver.transaction_history).to be_empty
     end
 
     it 'does not add a transaction with a negative amount' do
-      @super_saver.withdraw('14/01/2012', -500)
+      @super_saver.withdraw(-500, '14/01/2012')
       expect(@super_saver.transaction_history).to be_empty
     end
+
+    it 'uses todays date if not passed in an argument' do
+      today = Time.new(2019, 04, 01)
+      allow(Time).to receive(:now).and_return(today)
+      @super_saver.withdraw(123.45)
+      expect(@super_saver.transaction_history.first).to eq ['01/04/2019', nil, '123.45']
+    end
+
+    it 'adds multiple debits to the transaction history' do
+      @super_saver.withdraw(534.13, '25/05/2016')
+      @super_saver.withdraw(0.01, '18/08/2014')
+      expect(@super_saver.transaction_history.count).to eq 2
+      expect(@super_saver.transaction_history).to eq [['25/05/2016', nil, '534.13'], ['18/08/2014', nil, '0.01']]
+    end 
   end
 
   describe '#print_statement' do
@@ -67,7 +81,7 @@ RSpec.describe Account do
     it 'shows transactions in descending chronological order' do
       @super_saver.deposit(1000, '10/01/2012')
       @super_saver.deposit(2000, '12/01/2012')
-      @super_saver.withdraw('14/01/2012', 500)
+      @super_saver.withdraw(500, '14/01/2012')
       $stdout = StringIO.new
       @super_saver.print_statement
       output = $stdout.string.split("\n")
