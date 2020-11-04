@@ -43,7 +43,7 @@ RSpec.describe Statement do
   describe '.format_date' do
     it 'formats the date to DD/MM/YYYY' do
       formatted_date = Statement.format_date(@transactions).first.first
-      expect(formatted_date).to eq '14/01/2014'
+      expect(formatted_date).to eq '10/01/2012'
     end
   end
 

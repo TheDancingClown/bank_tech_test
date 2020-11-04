@@ -8,8 +8,8 @@ class Statement
 
     def view(transaction_history)
       puts COLUMN_HEADINGS
-      sorted_history = self.sort_chronologically(transaction_history)
-      sorted_history.reverse.map do |row|
+      sorted_and_date_formatted = self.format_date(transaction_history)
+      sorted_and_date_formatted.reverse.map do |row|
         puts row.join(' || ').squeeze(' ')
       end
     end
@@ -24,7 +24,8 @@ class Statement
     end
 
     def format_date(transaction_history)
-      transaction_history.map do |transaction|
+      sorted_history = self.sort_chronologically(transaction_history)
+      sorted_history.map do |transaction|
         transaction[0] = transaction[0].split('-').reverse.join('/')
         transaction
       end
