@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# bank account
+# account handles transaction data
 class Account
   attr_reader :transaction_history
 
@@ -8,11 +8,11 @@ class Account
     @transaction_history = []
   end
 
-  def deposit(amount, date = Time.now.strftime("%d/%m/%Y"))
+  def deposit(amount, date = Time.now)
     @transaction_history << [date, '%.2f' % amount, nil] unless amount <= 0
   end
 
-  def withdraw(amount, date = Time.now.strftime("%d/%m/%Y"))
+  def withdraw(amount, date = Time.now)
     @transaction_history << [date, nil, '%.2f' % amount] unless amount <= 0
   end
 

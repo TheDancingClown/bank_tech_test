@@ -3,6 +3,7 @@
 require 'account'
 
 RSpec.describe Account do
+
   before(:each) do
     @super_saver = Account.new
   end
@@ -28,10 +29,10 @@ RSpec.describe Account do
     end
 
     it 'uses todays date if not passed in an argument' do
-      today = Time.new(2020, 11, 03)
+      today = Time.new
       allow(Time).to receive(:now).and_return(today)
       @super_saver.deposit(875.50)
-      expect(@super_saver.transaction_history.first).to eq ['03/11/2020', '875.50', nil]
+      expect(@super_saver.transaction_history.first).to eq [today, '875.50', nil]
     end
 
     it 'adds multiple credits to the transaction history' do
@@ -60,10 +61,10 @@ RSpec.describe Account do
     end
 
     it 'uses todays date if not passed in an argument' do
-      today = Time.new(2019, 04, 01)
+      today = Time.new
       allow(Time).to receive(:now).and_return(today)
       @super_saver.withdraw(123.45)
-      expect(@super_saver.transaction_history.first).to eq ['01/04/2019', nil, '123.45']
+      expect(@super_saver.transaction_history.first).to eq [today, nil, '123.45']
     end
 
     it 'adds multiple debits to the transaction history' do
@@ -76,8 +77,8 @@ RSpec.describe Account do
   end
 
   describe '#print_statement' do
-    it 'prints the column headings' do
-      expect { @super_saver.print_statement }.to output("date || credit || debit || balance\n").to_stdout
+    context 'printing an empty statement' do
+      specify { expect { @super_saver.print_statement }.to output("date || credit || debit || balance\n").to_stdout }
     end
 
     it 'shows transactions in descending chronological order' do
