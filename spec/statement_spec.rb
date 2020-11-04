@@ -3,11 +3,9 @@
 require 'statement'
 
 RSpec.describe Statement do
+  
   before(:each) do
     @transactions = [['2014-01-14', nil, '500.25'], ['2012-01-10', '1000.00', nil], ['2012-01-12', '2000.55', nil]]
-    @credits = [['2018-10-05', '200.15', nil], ['2017-04-15', '435.78', nil]]
-    @debits = [['2018-10-05', nil, '0.02'], ['2017-04-15', nil, '20.05']]
-
   end
 
   describe '.sort_chronologically' do
@@ -16,7 +14,8 @@ RSpec.describe Statement do
     end
 
     it 'calculates the running balance for multiple credit transactions' do
-      sorted_statement = Statement.sort_chronologically(@credits)
+      credits = [['2018-10-05', '200.15', nil], ['2017-04-15', '435.78', nil]]
+      sorted_statement = Statement.sort_chronologically(credits)
       opening_balance = sorted_statement.first.last
       closing_balance = sorted_statement[(sorted_statement.count)-1].last
       expect(opening_balance).to eq '435.78'
@@ -24,7 +23,8 @@ RSpec.describe Statement do
     end
 
     it 'calculates the running balance for multiple debit transactions' do
-      sorted_statement = Statement.sort_chronologically(@debits)
+      debits = [['2018-10-05', nil, '0.02'], ['2017-04-15', nil, '20.05']]
+      sorted_statement = Statement.sort_chronologically(debits)
       opening_balance = sorted_statement.first.last
       closing_balance = sorted_statement[(sorted_statement.count)-1].last
       expect(opening_balance).to eq '-20.05'
@@ -52,11 +52,11 @@ RSpec.describe Statement do
       expect { Statement.view([]) }.to output(/date || credit || debit || balance/).to_stdout
     end
 
-    # it 'prints a formatted statement' do
-    #   $stdout = StringIO.new
-    #   Statement.view(@transactions)
-    #   output = $stdout.string.split("\n")
-    #   expect(output.last).to eq '10/01/2012 || 1000.00 || || 1000.00'
-    # end
+    it 'prints a formatted statement' do
+      $stdout = StringIO.new
+      Statement.view(@transactions)
+      output = $stdout.string.split("\n")
+      expect(output.last).to eq '10/01/2012 || 1000.00 || || 1000.00'
+    end
   end
 end
