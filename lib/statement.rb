@@ -6,13 +6,13 @@ class Statement
 
     COLUMN_HEADINGS = 'date || credit || debit || balance'
 
-    # def view(transaction_history)
-    #   sorted_history = self.sort_chronologically(transaction_history)
-    #   puts COLUMN_HEADINGS
-    #   sorted_history.reverse.map do |row|
-    #     puts row.join(' || ').squeeze(' ')
-    #   end
-    # end
+    def view(transaction_history)
+      puts COLUMN_HEADINGS
+      sorted_history = self.sort_chronologically(transaction_history)
+      sorted_history.reverse.map do |row|
+        puts row.join(' || ').squeeze(' ')
+      end
+    end
 
     def sort_chronologically(transaction_history)
       balance = 0
