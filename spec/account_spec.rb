@@ -6,6 +6,7 @@ RSpec.describe Account do
 
   before(:each) do
     @super_saver = Account.new
+    @today = Time.new(2020, 11, 04)
   end
 
   it 'initialises with an empty history' do
@@ -29,10 +30,9 @@ RSpec.describe Account do
     end
 
     it 'uses todays date if not specified' do
-      today = Time.new
-      allow(Time).to receive(:now).and_return(today)
+      allow(Time).to receive(:now).and_return(@today)
       @super_saver.deposit(875.50)
-      expect(@super_saver.transaction_history.first).to eq [today, '875.50', nil]
+      expect(@super_saver.transaction_history.first).to eq ['2020-11-04', '875.50', nil]
     end
 
     it 'adds multiple credits to the transaction history' do
@@ -61,10 +61,9 @@ RSpec.describe Account do
     end
 
     it 'uses todays date if not specified' do
-      today = Time.new
-      allow(Time).to receive(:now).and_return(today)
+      allow(Time).to receive(:now).and_return(@today)
       @super_saver.withdraw(123.45)
-      expect(@super_saver.transaction_history.first).to eq [today, nil, '123.45']
+      expect(@super_saver.transaction_history.first).to eq ['2020-11-04', nil, '123.45']
     end
 
     it 'adds multiple debits to the transaction history' do
@@ -75,20 +74,4 @@ RSpec.describe Account do
       expect(@super_saver.transaction_history.last).to eq ['2014-08-18', nil, '0.01']
     end 
   end
-
-  # describe '#print_statement' do
-  #   context 'printing an empty statement' do
-  #     specify { expect { @super_saver.print_statement }.to output("date || credit || debit || balance\n").to_stdout }
-  #   end
-
-  #   it 'shows transactions in descending chronological order' do
-  #     @super_saver.deposit(1000, '10/01/2012')
-  #     @super_saver.deposit(2000, '12/01/2012')
-  #     @super_saver.withdraw(500, '14/01/2012')
-  #     $stdout = StringIO.new
-  #     @super_saver.print_statement
-  #     output = $stdout.string.split("\n")
-  #     expect(output.last).to eq '10/01/2012 || 1000.00 || || 1000.00'
-  #   end
-  # end
 end

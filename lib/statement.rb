@@ -22,5 +22,12 @@ class Statement
         transaction << '%.2f' % balance
       end
     end
+
+    def format_date(transaction_history)
+      transaction_history.map do |transaction|
+        transaction[0] = transaction[0].split('-').reverse.join('/')
+        transaction
+      end
+    end
   end
 end
