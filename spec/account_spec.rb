@@ -28,7 +28,7 @@ RSpec.describe Account do
       expect(@super_saver.transaction_history).to be_empty
     end
 
-    it 'uses todays date if not passed in an argument' do
+    it 'uses todays date if not specified' do
       today = Time.new
       allow(Time).to receive(:now).and_return(today)
       @super_saver.deposit(875.50)
@@ -60,7 +60,7 @@ RSpec.describe Account do
       expect(@super_saver.transaction_history).to be_empty
     end
 
-    it 'uses todays date if not passed in an argument' do
+    it 'uses todays date if not specified' do
       today = Time.new
       allow(Time).to receive(:now).and_return(today)
       @super_saver.withdraw(123.45)
