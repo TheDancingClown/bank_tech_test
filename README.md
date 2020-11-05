@@ -94,6 +94,7 @@ date || credit || debit || balance
 ```
 rake
 ```
+![test_results](testing.png)
 ## Assumptions
 * Accounts can be overdrawn - no limit in place
 * New accounts always have a nil balance
