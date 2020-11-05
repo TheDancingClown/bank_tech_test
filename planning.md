@@ -54,8 +54,8 @@ Move the formatting into a new class
 
 ## Testing
 
-Consider whether other output matchers for testing STDout are more appropriate
-Add in coverage tester
+Consider whether other output matchers for testing STDout are more appropriate  
+Add in coverage tester  
 Add more tests to avoid hard coding - multiple deposits and withdrawals
 
 ## Method naming
