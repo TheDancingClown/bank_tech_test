@@ -21,44 +21,47 @@ date || credit || debit || balance
 10/01/2012 || 1000.00 || || 1000.00
 ```
 # Approach with user stories
->As a user,  
->So I can save for a rainy day,  
->I want to pay in my salary
-
->As a user,  
->So I can have wifi to use my banking app,  
->I want to be able to withdraw funds to pay bills
-
+```
+As a user,  
+So I can save for a rainy day,  
+I want to pay in my salary
+```
+```
+As a user,  
+So I can have wifi to use my banking app,  
+I want to be able to withdraw funds to pay bills
+```
 * Initialised git for source control
 * Initialised Rspec for TDD
 * Setup Travis for CI (tests didn't pass until JRuby removed from travis.yml)
 * Setup Rubocop for linting
 * TDD to create Account class, and methods for fund withdrawals and deposits
-
->As a bank,  
->So that accounts are easily managed,  
->I don't want to store invalid transactions
-
+```
+As a bank,  
+So that accounts are easily managed,  
+I don't want to store invalid transactions
+```
 * Additional tests for zero and negative amounts
-
->As a user,  
->So that I can plan my next holiday,  
->I want to be able to see my balance
-
->As a user,  
->So that I can use my partner's extravagant spending as a bargaining tool,  
->I want to be able to see the transaction history
-
+```
+As a user,  
+So that I can plan my next holiday,  
+I want to be able to see my balance
+```
+```
+As a user,  
+So that I can use my partner's extravagant spending as a bargaining tool,  
+I want to be able to see the transaction history
+```
 * TDD for print_statement method
 * Refactor print_statement into private method
 * Refactor previous methods to store decimal places and amend tests for decimals
 * Refactor print output test to be easier to read
 * Submission for first review
-
->As a user,  
->I may want to add in a transaction that was missing,  
->By passing it with a date in the past
-
+```
+As a user,  
+I may want to add in a transaction that was missing,  
+By passing it with a date in the past
+```
 * Refactored deposit and withdraw methods to use todays date if no date entered
 * Changed the format dates are entered by the user for easier sorting
 * Extracted formatting logic into a Statement class
@@ -70,11 +73,7 @@ git clone https://github.com/TheDancingClown/bank_tech_test
 cd bank_tech_test
 bundle install
 ```
-either run the runner file to see the statement output
-```
-ruby './spec/features/print_statement.rb'  
-```
-or run the program in IRB
+run the program in IRB
 ```
 irb
 require './lib/account'
