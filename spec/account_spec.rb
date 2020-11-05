@@ -76,10 +76,24 @@ RSpec.describe Account do
   end
 
   describe '#print_statement' do
+
+    before(:each) do
+      @statement = class_double("Statement").as_stubbed_const(:transfer_nested_constants => true)
+    end
+
     it 'prints the statement in the desired format' do
-      statement = class_double("Statement").as_stubbed_const(:transfer_nested_constants => true)
-      allow(statement).to receive(:view).with([]).and_return ["date || credit || debit || balance"]
+      allow(@statement).to receive(:view).with([]).and_return ["date || credit || debit || balance"]
       expect { @super_saver.print_statement }.to output("date || credit || debit || balance\n").to_stdout
+    end
+
+    it 'prints a formatted statement' do
+      @super_saver.deposit(1000, '2012-01-10')
+      formatted_history = [["date || credit || debit || balance"], ["10/01/2012 || 1000.00 || || 1000.00"]]
+      allow(@statement).to receive(:view).with(@super_saver.transaction_history).and_return formatted_history
+      $stdout = StringIO.new
+      @super_saver.print_statement
+      output = $stdout.string.split("\n")
+      expect(output.last).to eq '10/01/2012 || 1000.00 || || 1000.00'
     end
   end
 end
