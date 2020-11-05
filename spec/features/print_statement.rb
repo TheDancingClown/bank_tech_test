@@ -3,7 +3,7 @@
 require './lib/account'
 
 super_saver = Account.new
-super_saver.deposit('10/01/2012', 1000)
-super_saver.deposit('13/01/2012', 2000)
-super_saver.withdraw('14/01/2012', 500)
+super_saver.deposit(1000, '2012-01-10')
+super_saver.deposit(2000, '2012-01-12')
+super_saver.withdraw(500, '2012-01-14')
 super_saver.print_statement

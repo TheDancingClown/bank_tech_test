@@ -6,14 +6,6 @@ class Statement
 
     COLUMN_HEADINGS = 'date || credit || debit || balance'
 
-    def view(transaction_history)
-      puts COLUMN_HEADINGS
-      sorted_and_date_formatted = self.format_date(transaction_history)
-      sorted_and_date_formatted.reverse.map do |row|
-        puts row.join(' || ').squeeze(' ')
-      end
-    end
-
     def sort_chronologically(transaction_history)
       balance = 0
       transaction_history.sort.map do |transaction|
@@ -29,6 +21,14 @@ class Statement
         transaction[0] = transaction[0].split('-').reverse.join('/')
         transaction
       end
+    end
+
+    def view(transaction_history)
+      date_format = self.format_date(transaction_history)
+      column_format = date_format.reverse.map do |row|
+       row.join(' || ').squeeze(' ')
+      end
+      column_format.unshift(COLUMN_HEADINGS)
     end
   end
 end

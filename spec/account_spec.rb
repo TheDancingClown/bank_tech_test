@@ -74,4 +74,12 @@ RSpec.describe Account do
       expect(@super_saver.transaction_history.last).to eq ['2014-08-18', nil, '0.01']
     end 
   end
+
+  describe '#print_statement' do
+    it 'prints the statement in the desired format' do
+      statement = class_double("Statement").as_stubbed_const(:transfer_nested_constants => true)
+      allow(statement).to receive(:view).with([]).and_return ["date || credit || debit || balance"]
+      expect { @super_saver.print_statement }.to output("date || credit || debit || balance\n").to_stdout
+    end
+  end
 end
