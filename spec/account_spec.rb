@@ -3,10 +3,9 @@
 require 'account'
 
 RSpec.describe Account do
-
   before(:each) do
     @super_saver = Account.new
-    @today = Time.new(2020, 11, 04)
+    @today = Time.new(2020, 11, 0o4)
   end
 
   it 'initialises with an empty history' do
@@ -41,7 +40,7 @@ RSpec.describe Account do
       @super_saver.deposit(435.78, '2017-04-15')
       expect(@super_saver.transaction_history.count).to eq 3
       expect(@super_saver.transaction_history.last).to eq ['2017-04-15', '435.78', nil]
-    end 
+    end
   end
 
   describe '#withdraw' do
@@ -72,23 +71,22 @@ RSpec.describe Account do
       @super_saver.withdraw(0.01, '2014-08-18')
       expect(@super_saver.transaction_history.count).to eq 3
       expect(@super_saver.transaction_history.last).to eq ['2014-08-18', nil, '0.01']
-    end 
+    end
   end
 
   describe '#print_statement' do
-
     before(:each) do
-      @statement = class_double("Statement").as_stubbed_const(:transfer_nested_constants => true)
+      @statement = class_double('Statement').as_stubbed_const(transfer_nested_constants: true)
     end
 
     it 'prints headings for an empty statement' do
-      allow(@statement).to receive(:view).with([]).and_return ["date || credit || debit || balance"]
+      allow(@statement).to receive(:view).with([]).and_return ['date || credit || debit || balance']
       expect { @super_saver.print_statement }.to output("date || credit || debit || balance\n").to_stdout
     end
 
     it 'prints a formatted statement' do
       @super_saver.deposit(1000, '2012-01-10')
-      formatted_history = [["date || credit || debit || balance"], ["10/01/2012 || 1000.00 || || 1000.00"]]
+      formatted_history = [['date || credit || debit || balance'], ['10/01/2012 || 1000.00 || || 1000.00']]
       allow(@statement).to receive(:view).with(@super_saver.transaction_history).and_return formatted_history
       $stdout = StringIO.new
       @super_saver.print_statement
