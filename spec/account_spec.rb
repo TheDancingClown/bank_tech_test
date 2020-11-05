@@ -81,7 +81,7 @@ RSpec.describe Account do
       @statement = class_double("Statement").as_stubbed_const(:transfer_nested_constants => true)
     end
 
-    it 'prints the statement in the desired format' do
+    it 'prints headings for an empty statement' do
       allow(@statement).to receive(:view).with([]).and_return ["date || credit || debit || balance"]
       expect { @super_saver.print_statement }.to output("date || credit || debit || balance\n").to_stdout
     end

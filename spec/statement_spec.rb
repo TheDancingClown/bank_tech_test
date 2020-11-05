@@ -5,12 +5,15 @@ require 'statement'
 RSpec.describe Statement do
   
   before(:each) do
-    @transactions = [['2014-01-14', nil, '500.25'], ['2012-01-10', '1000.00', nil], ['2012-01-12', '2000.55', nil]]
+    @transactions = [['2012-01-14', nil, '500.25'], \
+                    ['2012-01-10', '1000.00', nil], \
+                    ['2012-01-12', '2000.55', nil]]
   end
 
   describe '.sort_chronologically' do
     it 'sorts the transaction history by date' do
-      expect(Statement.sort_chronologically(@transactions).first).to eq ['2012-01-10', '1000.00', nil, '1000.00']
+      expect(Statement.sort_chronologically(@transactions).first).to eq \
+      ['2012-01-10', '1000.00', nil, '1000.00']
     end
 
     it 'calculates the running balance for multiple credit transactions' do
@@ -50,6 +53,14 @@ RSpec.describe Statement do
   describe '.view' do
     it 'returns the column headings headings' do
       expect(Statement.view([])).to eq(["date || credit || debit || balance"])
+    end
+
+    it 'returns a formatted history' do
+      expect(Statement.view(@transactions)).to eq \
+      ["date || credit || debit || balance", \
+      "14/01/2012 || || 500.25 || 2500.30", \
+      "12/01/2012 || 2000.55 || || 3000.55", \
+      "10/01/2012 || 1000.00 || || 1000.00"]
     end
   end
 end
